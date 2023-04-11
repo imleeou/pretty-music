@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { DEVICE_ORIENTATION_MAP } from "@/enums/constants";
+
 /** 保存系统信息 */
 const systemInfo = ref<UniApp.GetSystemInfoResult>(),
   /** 二维码key */
@@ -56,6 +58,9 @@ const getQrCode = (key: string) => {
         <li>设备类型：{{ systemInfo?.deviceType }}</li>
         <li>系统名称：{{ systemInfo?.osName }}</li>
         <li>ua：{{ systemInfo?.ua }}</li>
+        <li>
+          设备方向：{{ DEVICE_ORIENTATION_MAP[systemInfo?.deviceOrientation!] }}
+        </li>
         <li>
           屏幕宽度：{{ systemInfo?.screenWidth }} - 屏幕高度：{{
             systemInfo?.screenHeight
