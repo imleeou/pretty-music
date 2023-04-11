@@ -1,7 +1,7 @@
 {
-    "name" : "",
-    "appid" : "",
-    "description" : "",
+    "name" : "prettyMusic",
+    "appid" : "__UNI__6CB40D7",
+    "description" : "第三方网易云",
     "versionName" : "1.0.0",
     "versionCode" : "100",
     "transformPx" : false,
@@ -41,9 +41,13 @@
                 ]
             },
             /* ios打包配置 */
-            "ios" : {},
+            "ios" : {
+                "dSYMs" : false
+            },
             /* SDK配置 */
-            "sdkConfigs" : {}
+            "sdkConfigs" : {
+                "ad" : {}
+            }
         }
     },
     /* 快应用特有相关 */
@@ -65,8 +69,8 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-    "uniStatistics": {  
-        "enable": false
+    "uniStatistics" : {
+        "enable" : false
     },
     "vueVersion" : "3"
 }
