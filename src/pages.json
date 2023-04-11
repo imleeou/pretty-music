@@ -4,16 +4,17 @@
       "path": "pages/login/index"
     },
     {
-      "path": "pages/home/index",
-      "style": {
-        "navigationBarTitleText": "音乐台"
-      }
+      "path": "pages/home/index"
+    },
+    {
+      "path": "pages/mine/index"
+    },
+    {
+      "path": "pages/account/index"
     }
   ],
   "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "Pretty Music",
-    "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationStyle": "custom",
     "backgroundColor": "#F8F8F8"
   }
 }
