@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { DEVICE_ORIENTATION_MAP } from "@/enums/constants";
-
+import { getLoginQr, getLoginQrKey } from "@/api/login";
 /** 保存系统信息 */
 const systemInfo = ref<UniApp.GetSystemInfoResult>(),
   /** 二维码key */
@@ -16,36 +16,22 @@ const getSystemInfo = () => {
 getSystemInfo();
 
 /** 获取二维码key */
-const getQrCodeKey = () => {
-  uni.request({
-    url: "/base-api/login/qr/key",
-    method: "GET",
-    data: {
-      timestamp: Date.now(),
-    },
-    success: (res: any) => {
-      qrCodeKey.value = res.data.data.unikey;
-      console.log("res.data", res.data.data);
-      getQrCode(res.data.data.unikey);
-    },
+const getQrCodeKey = async () => {
+  const { data } = await getLoginQrKey({
+    timestamp: Date.now(),
   });
+  getQrCode(data.unikey);
 };
 getQrCodeKey();
 
 /** 获取登录二维码 */
-const getQrCode = (key: string) => {
-  uni.request({
-    url: "/base-api/login/qr/create",
-    method: "GET",
-    data: {
-      timestamp: Date.now(),
-      key,
-      qrimg: true,
-    },
-    success: (res: any) => {
-      qrCodeUrl.value = res.data.data.qrimg;
-    },
+const getQrCode = async (key: string) => {
+  const { data } = await getLoginQr({
+    timestamp: Date.now(),
+    key,
+    qrimg: true,
   });
+  qrCodeUrl.value = data.qrimg;
 };
 </script>
 
