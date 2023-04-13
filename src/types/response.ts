@@ -1,3 +1,5 @@
+import type { LOGIN_QR_STATUS_MAP } from "@/enums/constants";
+
 /** 默认响应类型 */
 export interface DefaultResponse<T> {
   cookies: string[];
@@ -17,4 +19,32 @@ export interface GetLoginQrKeyResponse {
 export interface GetLoginQrResponse {
   qrimg: string;
   qrurl: string;
+}
+
+/** 检测登录二维码状态 */
+export interface LoginQrStatusQueryResponse {
+  /** 二维码状态 */
+  code: keyof typeof LOGIN_QR_STATUS_MAP;
+  cookie: string;
+  message: string;
+}
+
+/** 用户信息 */
+export interface UserInfo {
+  account: {
+    id: number;
+    userName: string;
+    type: number;
+    status: number;
+    whitelistAuthority: number;
+    createTime: number;
+    tokenVersion: number;
+    ban: number;
+    baoyueVersion: number;
+    donateVersion: number;
+    vipType: number;
+    anonimousUser: boolean;
+    paidFee: boolean;
+  };
+  profile: null;
 }

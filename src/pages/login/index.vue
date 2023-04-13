@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { DEVICE_ORIENTATION_MAP } from "@/enums/constants";
-import { getLoginQr, getLoginQrKey } from "@/api/login";
+import { getLoginQr, getLoginQrKey, loginQrStatusQuery } from "@/api/login";
+import { LoginQrStatus } from "@/enums/user";
 /** 保存系统信息 */
 const systemInfo = ref<UniApp.GetSystemInfoResult>(),
   /** 二维码key */
   qrCodeKey = ref<string>(),
   /** 二维码 */
-  qrCodeUrl = ref<string>();
-
+  qrCodeUrl = ref<string>(),
+  /** 轮询二维码状态定时器 */
+  timer = ref<number>(),
+  /** 二维码状态 */
+  qrCodeStatus = ref<LoginQrStatus>();
 /** 获取系统信息 */
 const getSystemInfo = () => {
   systemInfo.value = uni.getSystemInfoSync();
@@ -20,6 +24,7 @@ const getQrCodeKey = async () => {
   const { data } = await getLoginQrKey({
     timestamp: Date.now(),
   });
+  qrCodeKey.value = data.unikey;
   getQrCode(data.unikey);
 };
 getQrCodeKey();
@@ -32,6 +37,37 @@ const getQrCode = async (key: string) => {
     qrimg: true,
   });
   qrCodeUrl.value = data.qrimg;
+  // 设置状态轮询
+  pollingLoginStatus(key);
+};
+
+/** 定时查询二维码状态 */
+const pollingLoginStatus = (key: string) => {
+  timer.value = setInterval(async () => {
+    const { data } = await loginQrStatusQuery({
+      timestamp: Date.now(),
+      key,
+    });
+    qrCodeStatus.value = data.code;
+    //  如果二维码失效，重新获取
+    if (data.code === LoginQrStatus.EXPIRED) {
+      clearInterval(timer.value);
+      getQrCodeKey();
+    } else if (data.code === LoginQrStatus.SUCCESS) {
+      // 登录成功
+      clearInterval(timer.value);
+      // 跳转到首页
+      uni.switchTab({
+        url: "/pages/home/index",
+      });
+    }
+  }, 3000);
+};
+
+/** 点击二维码刷新 */
+const clickQr = () => {
+  clearInterval(timer.value);
+  getQrCodeKey();
 };
 </script>
 
@@ -61,7 +97,9 @@ const getQrCode = async (key: string) => {
     </view>
     <view class="login">
       <view>扫码登录</view>
-      <image v-if="qrCodeUrl" :src="qrCodeUrl" />
+      <view class="qrcode-box">
+        <image @click="clickQr" v-if="qrCodeUrl" :src="qrCodeUrl" />
+      </view>
     </view>
   </view>
 </template>
@@ -84,6 +122,15 @@ const getQrCode = async (key: string) => {
     border-right: 1px solid #8f8f94;
     li:nth-child(2n) {
       background-color: #8f8f9463;
+    }
+  }
+  .qrcode-box {
+    width: 400rpx;
+    height: 400rpx;
+    margin: 0 auto;
+    image {
+      width: 100%;
+      height: 100%;
     }
   }
 }

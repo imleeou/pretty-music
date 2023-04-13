@@ -1,5 +1,5 @@
 import request from "@/utils/request";
-import type { GetLoginQrKeyResponse, GetLoginQrResponse } from "@/types/response";
+import type { GetLoginQrKeyResponse, GetLoginQrResponse, LoginQrStatusQueryResponse } from "@/types/response";
 
 /** 获取登录二维码key */
 export const getLoginQrKey = (data: { timestamp: number }) => {
@@ -16,6 +16,17 @@ export const getLoginQr = (data: {
   timestamp: number;
 }) => {
   return request<GetLoginQrResponse>("/login/qr/create", {
+    method: "GET",
+    data,
+  });
+};
+
+/**  二维码检测扫码状态接口 */
+export const loginQrStatusQuery = (data: {
+  key: string;
+  timestamp: number;
+}) => {
+  return request<LoginQrStatusQueryResponse>("/login/qr/check", {
     method: "GET",
     data,
   });
