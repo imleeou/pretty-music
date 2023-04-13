@@ -185,10 +185,10 @@
                 "android" : {
                     "mdpi" : "", /*普通屏程序图标，分辨率：48x48*/
                     "ldpi" : "", /*大屏程序图标，分辨率：48x48*/
-                    "hdpi" : "/Users/liufei/Downloads/zmj/mom-pad图标/1.png", /*高分屏程序图标，分辨率：72x72*/
-                    "xhdpi" : "/Users/liufei/Downloads/zmj/mom-pad图标/2.png", /*720P高分屏程序图标，分辨率：96x96*/
-                    "xxhdpi" : "/Users/liufei/Downloads/zmj/mom-pad图标/3.png", /*1080P 高分屏程序图标，分辨率：144x144*/
-                    "xxxhdpi" : "/Users/liufei/Downloads/zmj/mom-pad图标/4.png"
+                    "hdpi" : "", /*高分屏程序图标，分辨率：72x72*/
+                    "xhdpi" : "", /*720P高分屏程序图标，分辨率：96x96*/
+                    "xxhdpi" : "", /*1080P 高分屏程序图标，分辨率：144x144*/
+                    "xxxhdpi" : ""
                 }
             },
             "splashscreen" : {
@@ -234,7 +234,7 @@
     "versionName" : "0.0.1",
     "vueVersion" : "3",
     "app-plus" : {
-		"screenOrientation":["landscape-primary","portrait-primary"],
+        "screenOrientation" : [ "landscape-primary", "portrait-primary" ],
         "distribute" : {
             "icons" : {
                 "android" : {
@@ -273,7 +273,11 @@
             },
             "ios" : {
                 "idfa" : false,
-                "UIBackgroundModes" : "audio"
+                "UIBackgroundModes" : "audio",
+                "dSYMs" : false
+            },
+            "sdkConfigs" : {
+                "ad" : {}
             }
         }
     }
