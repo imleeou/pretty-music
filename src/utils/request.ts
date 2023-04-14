@@ -1,15 +1,21 @@
 import type { DefaultResponse } from "@/types/response";
-
+import { getCookieSync } from "./auth";
 interface RequestConfig {
   data?: any;
   method?: "GET" | "POST";
-  header?: any;
+  header?: {
+    "Content-Type"?: string;
+    Cookie?: string;
+    [key: string]: any;
+  };
+  /** 是否白名单 */
+  isWhite?: boolean;
 }
 
 const BASE_URL = import.meta.env.VITE_API_URL as string;
 /** 默认配置 */
-const defaultOptions = {
-  methods: "POST",
+const defaultOptions: RequestConfig = {
+  method: "POST",
   header: {
     "Content-Type": "application/json;charset=UTF-8",
   },
@@ -20,6 +26,22 @@ const request = <R>(
   options?: RequestConfig
 ): Promise<DefaultResponse<R>> => {
   return new Promise((resolve, reject) => {
+    // 如果不是白名单，添加cookie
+    if (!options?.isWhite) {
+      const cookie = getCookieSync();
+      if (cookie) {
+        defaultOptions.header!.Cookie = cookie;
+      } else {
+        uni.showToast({
+          title: "未登录或登录已过期",
+          icon: "none",
+        });
+        uni.redirectTo({
+          url: "/pages/login/index",
+        });
+        return false;
+      }
+    }
     uni.request({
       url: BASE_URL + url,
       ...defaultOptions,
