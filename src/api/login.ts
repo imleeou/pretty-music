@@ -6,6 +6,7 @@ export const getLoginQrKey = (data: { timestamp: number }) => {
   return request<GetLoginQrKeyResponse>("/login/qr/key", {
     method: "GET",
     data,
+    isWhite: true,
   });
 };
 
@@ -18,6 +19,7 @@ export const getLoginQr = (data: {
   return request<GetLoginQrResponse>("/login/qr/create", {
     method: "GET",
     data,
+    isWhite: true,
   });
 };
 
@@ -29,5 +31,6 @@ export const loginQrStatusQuery = (data: {
   return request<LoginQrStatusQueryResponse>("/login/qr/check", {
     method: "GET",
     data,
+    isWhite: true,
   });
 };

@@ -4,6 +4,9 @@ import { LoginQrStatus } from "../user";
 /** 系统名称 */
 export const SYSTEM_NAME = "Pretty Music";
 
+/** 登录获取的cookie */
+export const LOGIN_COOKIE_KEY = "__login_cookie__"; 
+
 /** 设备方向映射 */
 export const DEVICE_ORIENTATION_MAP = {
   [DeviceOrientation.PORTRAIT]: "竖屏",

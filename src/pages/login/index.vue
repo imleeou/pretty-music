@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { DEVICE_ORIENTATION_MAP } from "@/enums/constants";
 import { getLoginQr, getLoginQrKey, loginQrStatusQuery } from "@/api/login";
 import { LoginQrStatus } from "@/enums/user";
+import { setCookieSync } from "@/utils/auth";
 /** 保存系统信息 */
 const systemInfo = ref<UniApp.GetSystemInfoResult>(),
   /** 二维码key */
@@ -56,8 +57,9 @@ const pollingLoginStatus = (key: string) => {
     } else if (data.code === LoginQrStatus.SUCCESS) {
       // 登录成功
       clearInterval(timer.value);
+      setCookieSync(data.cookie);
       // 跳转到首页
-      uni.switchTab({
+      uni.redirectTo({
         url: "/pages/home/index",
       });
     }
