@@ -7,7 +7,7 @@ export default defineConfig({
     port: 9001,
     proxy: {
       "/base-api": {
-        target: "http://music.leeou.cc",
+        target: "http://localhost:3000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/base-api/, ""),
       },
