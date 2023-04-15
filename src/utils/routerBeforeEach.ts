@@ -22,7 +22,7 @@ export default async function () {
         // 不是白名单并且没有cookie
         if (!pass && !getCookieSync()) {
           uni.showToast({
-            title: "请先登录",
+            title: "未登录或登录已过期",
             icon: "none",
           });
           uni.navigateTo({

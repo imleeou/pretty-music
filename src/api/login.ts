@@ -1,5 +1,9 @@
 import request from "@/utils/request";
-import type { GetLoginQrKeyResponse, GetLoginQrResponse, LoginQrStatusQueryResponse } from "@/types/response";
+import type {
+  GetLoginQrKeyResponse,
+  GetLoginQrResponse,
+  LoginQrStatusQueryResponse,
+} from "@/types/response";
 
 /** 获取登录二维码key */
 export const getLoginQrKey = (data: { timestamp: number }) => {
@@ -32,5 +36,12 @@ export const loginQrStatusQuery = (data: {
     method: "GET",
     data,
     isWhite: true,
+  });
+};
+
+/** 获取登录状态 */
+export const getLoginStatus = (data: { cookie: string }) => {
+  return request("/login/status", {
+    data,
   });
 };

@@ -10,6 +10,10 @@ interface RequestConfig {
   };
   /** 是否白名单 */
   isWhite?: boolean;
+  /** 开启后可在headers中编辑cookie */
+  enableCookie?: boolean;
+  /**  跨域请求时是否携带凭证（cookies）*/
+  withCredentials?: boolean;
 }
 
 const BASE_URL = import.meta.env.VITE_API_URL as string;
@@ -19,19 +23,18 @@ const defaultOptions: RequestConfig = {
   header: {
     "Content-Type": "application/json;charset=UTF-8",
   },
+  withCredentials: true,
 };
 
 const request = <R = DefaultResponseData>(
   url: string,
-  options?: RequestConfig
+  options: RequestConfig = defaultOptions
 ): Promise<DefaultResponse<R>> => {
   return new Promise((resolve, reject) => {
     // 如果不是白名单，添加cookie
     if (!options?.isWhite) {
       const cookie = getCookieSync();
-      if (cookie) {
-        defaultOptions.header!.Cookie = cookie;
-      } else {
+      if (!cookie) {
         uni.showToast({
           title: "未登录或登录已过期",
           icon: "none",
@@ -41,9 +44,20 @@ const request = <R = DefaultResponseData>(
         });
         return false;
       }
+      // 手动添加cookie
+      if (options.data) {
+        options.data.cookie = cookie;
+      } else {
+        options.data = {
+          cookie,
+        };
+      }
     }
     // POST 请求 url 必须添加时间戳,使每次请求 url 不一样,不然请求会被缓存
-    const postUrl = options?.method === "POST" ? url + "?timestamp=" + Date.now() : url;
+    const postUrl =
+      options?.method === "POST" || !options.method
+        ? url + "?timestamp=" + Date.now()
+        : url;
     uni.request({
       url: BASE_URL + postUrl,
       ...defaultOptions,
