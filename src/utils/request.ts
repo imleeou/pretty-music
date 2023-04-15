@@ -45,13 +45,10 @@ const request = <R = DefaultResponseData>(
         return false;
       }
       // 手动添加cookie
-      if (options.data) {
-        options.data.cookie = cookie;
-      } else {
-        options.data = {
-          cookie,
-        };
-      }
+      options.data = {
+        ...options.data,
+        cookie,
+      };
     }
     // POST 请求 url 必须添加时间戳,使每次请求 url 不一样,不然请求会被缓存
     const postUrl =
