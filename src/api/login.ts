@@ -3,6 +3,7 @@ import type {
   GetLoginQrKeyResponse,
   GetLoginQrResponse,
   LoginQrStatusQueryResponse,
+  LoginStatusResponse,
 } from "@/types/response";
 
 /** 获取登录二维码key */
@@ -41,7 +42,7 @@ export const loginQrStatusQuery = (data: {
 
 /** 获取登录状态 */
 export const getLoginStatus = (data: { cookie: string }) => {
-  return request("/login/status", {
+  return request<LoginStatusResponse>("/login/status", {
     data,
   });
 };

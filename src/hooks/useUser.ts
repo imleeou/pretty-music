@@ -1,4 +1,5 @@
 import { getLoginStatus } from "@/api/login";
+import { USER_ACCOUNT_KEY, USER_PROFILE_KEY } from "@/enums/constants";
 import { getCookieSync } from "@/utils/auth";
 
 export const useUser = () => {
@@ -23,7 +24,8 @@ export const useUser = () => {
       const { data } = await getLoginStatus({
         cookie: getCookieSync(),
       });
-      console.log("data", data);
+      uni.setStorageSync(USER_ACCOUNT_KEY, data.account);
+      uni.setStorageSync(USER_PROFILE_KEY, data.profile);
       return data;
     }
   };

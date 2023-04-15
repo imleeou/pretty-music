@@ -55,3 +55,33 @@ export interface UserInfo {
   };
   profile: null;
 }
+
+/** 登录状态account */
+export interface LoginStatusAccount {
+  id: number;
+  vipType: number;
+  status: number;
+  [key: string]: any;
+}
+
+/** 登录状态profile */
+export interface LoginStatusProfile {
+  /** 头像 */
+  avatarUrl: string;
+  accountType: number;
+  birthday: number;
+  city: number;
+  gender: number;
+  /** 昵称 */
+  nickname: string;
+  backgroundUrl: string;
+  /** 用户id */
+  userId: number;
+  [key: string]: any;
+}
+/** 登录状态 */
+export interface LoginStatusResponse {
+  code: number;
+  account: LoginStatusAccount;
+  profile: LoginStatusProfile;
+}
