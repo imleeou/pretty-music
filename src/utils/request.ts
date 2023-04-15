@@ -42,8 +42,10 @@ const request = <R>(
         return false;
       }
     }
+    // POST 请求 url 必须添加时间戳,使每次请求 url 不一样,不然请求会被缓存
+    const postUrl = options?.method === "POST" ? url + "?timestamp=" + Date.now() : url;
     uni.request({
-      url: BASE_URL + url,
+      url: BASE_URL + postUrl,
       ...defaultOptions,
       ...options,
       success: (res) => {
