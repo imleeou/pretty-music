@@ -9,6 +9,13 @@ export interface DefaultResponse<T> {
   errMsg?: string;
 }
 
+/** 接口默认返回结构 */
+export interface DefaultResponseData {
+  code: number;
+  data?: any;
+  message?: string;
+}
+
 /** 获取二维码key返回值 */
 export interface GetLoginQrKeyResponse {
   code: number;

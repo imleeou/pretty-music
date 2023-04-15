@@ -1,4 +1,4 @@
-import type { DefaultResponse } from "@/types/response";
+import type { DefaultResponse, DefaultResponseData } from "@/types/response";
 import { getCookieSync } from "./auth";
 interface RequestConfig {
   data?: any;
@@ -21,7 +21,7 @@ const defaultOptions: RequestConfig = {
   },
 };
 
-const request = <R>(
+const request = <R = DefaultResponseData>(
   url: string,
   options?: RequestConfig
 ): Promise<DefaultResponse<R>> => {
