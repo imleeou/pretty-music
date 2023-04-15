@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onUnmounted } from "vue";
 import { DEVICE_ORIENTATION_MAP } from "@/enums/constants";
 import { getLoginQr, getLoginQrKey, loginQrStatusQuery } from "@/api/login";
 import { LoginQrStatus } from "@/enums/user";
@@ -44,6 +44,10 @@ const getQrCode = async (key: string) => {
 
 /** 定时查询二维码状态 */
 const pollingLoginStatus = (key: string) => {
+  if (timer.value) {
+    clearInterval(timer.value);
+    timer.value = undefined;
+  }
   timer.value = setInterval(async () => {
     const { data } = await loginQrStatusQuery({
       timestamp: Date.now(),
@@ -71,6 +75,10 @@ const clickQr = () => {
   clearInterval(timer.value);
   getQrCodeKey();
 };
+
+onUnmounted(() => {
+  clearInterval(timer.value);
+});
 </script>
 
 <template>
