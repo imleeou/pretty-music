@@ -41,8 +41,11 @@ export const loginQrStatusQuery = (data: {
 };
 
 /** 获取登录状态 */
-export const getLoginStatus = (data: { cookie: string }) => {
-  return request<LoginStatusResponse>("/login/status", {
-    data,
-  });
+export const getLoginStatus = () => {
+  return request<LoginStatusResponse>("/login/status");
+};
+
+/** 退出登录 */
+export const logoutApi = () => {
+  return request('/logout')
 };

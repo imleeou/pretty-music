@@ -21,9 +21,7 @@ export const useUser = () => {
       }
       return false;
     } else {
-      const { data } = await getLoginStatus({
-        cookie: getCookieSync(),
-      });
+      const { data } = await getLoginStatus();
       uni.setStorageSync(USER_ACCOUNT_KEY, data.account);
       uni.setStorageSync(USER_PROFILE_KEY, data.profile);
       return data;
