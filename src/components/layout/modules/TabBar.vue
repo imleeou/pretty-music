@@ -27,7 +27,7 @@ const toggleBar = (bar: { path: string }) => {
       :key="index"
       @click="toggleBar(bar)"
     >
-      <i :class="['iconfont', bar.icon]"></i>
+      <view class="icon flex-center"><i :class="['iconfont', bar.icon]"></i></view>
       <text class="name">{{ bar.name }}</text>
     </view>
   </view>
@@ -52,17 +52,28 @@ const toggleBar = (bar: { path: string }) => {
     color: $default-black;
     .name {
       font-size: 30rpx;
-      margin-top: 10rpx;
+      margin-top: 6rpx;
     }
-    > .iconfont {
+    .icon {
+      padding: 14rpx;
+      border-radius: 50%;
+      > .iconfont {
       font-size: 50rpx;
+    }
     }
     &:last-child {
       margin-bottom: 0;
     }
   }
   .active-bar {
-    color: $theme-color;
+    .name {
+      color: $theme-color;
+      font-weight: bold;
+    }
+    .icon {
+      background-color: $theme-color;
+      color: #fff;
+    }
   }
 }
 </style>
