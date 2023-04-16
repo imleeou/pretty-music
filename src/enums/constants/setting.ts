@@ -4,7 +4,7 @@ export const SYSTEM_NAME = "Pretty Music";
 export const LOGIN_COOKIE_KEY = "__login_cookie__";
 /** 用户account */
 export const USER_ACCOUNT_KEY = "__user_account__";
-/** 用户profile */
+/** 用户信息(profile) */
 export const USER_PROFILE_KEY = "__user_profile__";
 
 /** 横向tabbar展示内容 */
