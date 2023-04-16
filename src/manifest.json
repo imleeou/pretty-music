@@ -230,7 +230,7 @@
     },
     "screenOrientation" : [ "landscape-primary" ],
     "appid" : "__UNI__6CB40D7",
-    "versionCode" : 20230411,
+    "versionCode" : 20230416,
     "versionName" : "0.0.1",
     "vueVersion" : "3",
     "app-plus" : {
@@ -269,7 +269,7 @@
                 }
             },
             "android" : {
-                "abiFilters" : [ "armeabi-v7a", "arm64-v8a", "x86" ]
+                "abiFilters" : [ "armeabi-v7a", "arm64-v8a" ]
             },
             "ios" : {
                 "idfa" : false,
