@@ -1,12 +1,8 @@
-/* CDN 服务仅供平台体验和调试使用，平台不承诺服务的稳定性，企业客户需下载字体包自行发布使用并做好备份。 */
 @font-face {
-  font-family: "iconfont"; /* Project id 4010150 */
-  src: url("//at.alicdn.com/t/c/font_4010150_7a36jl0wam2.woff2?t=1681224107185")
-      format("woff2"),
-    url("//at.alicdn.com/t/c/font_4010150_7a36jl0wam2.woff?t=1681224107185")
-      format("woff"),
-    url("//at.alicdn.com/t/c/font_4010150_7a36jl0wam2.ttf?t=1681224107185")
-      format("truetype");
+  font-family: 'iconfont';  /* Project id 4010150 */
+  src: url('//at.alicdn.com/t/c/font_4010150_x5ru9mydap.woff2?t=1681609235836') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4010150_x5ru9mydap.woff?t=1681609235836') format('woff'),
+       url('//at.alicdn.com/t/c/font_4010150_x5ru9mydap.ttf?t=1681609235836') format('truetype');
 }
 
 .iconfont {
@@ -20,13 +16,13 @@
 
 /* 音悦台 */
 .icon-music-station:before {
-  content: "&#xe6b8";
+  content: "\e60d";
 }
 /* 歌单 */
 .icon-playlist:before {
-  content: "&#xe636";
+  content: "\e636";
 }
 /* 账号 */
 .icon-account:before {
-  content: "&#xe6b9";
+  content: "\e6a0";
 }
