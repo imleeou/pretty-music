@@ -17,11 +17,13 @@ onHide(() => {
 });
 </script>
 <style lang="scss">
-@import "@/style/index.scss";
 // 通配符样式卸载index.scss中不生效
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+body {
+  padding-top: var(--status-bar-height);
 }
 </style>
