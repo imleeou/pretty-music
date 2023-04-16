@@ -93,6 +93,7 @@ onUnmounted(() => {
         <li>
           设备方向：{{ DEVICE_ORIENTATION_MAP[systemInfo?.deviceOrientation!] }}
         </li>
+        <li>状态栏高度: {{ systemInfo?.statusBarHeight }}</li>
         <li>
           屏幕宽度：{{ systemInfo?.screenWidth }} - 屏幕高度：{{
             systemInfo?.screenHeight
