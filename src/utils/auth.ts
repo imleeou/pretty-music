@@ -1,4 +1,4 @@
-import { LOGIN_COOKIE_KEY } from "../enums/constants";
+import { LOGIN_COOKIE_KEY } from "../enums/constants/setting";
 
 /** 缓存接口返回的Cookie字段信息 */
 export function setCookieSync(cookie: string) {

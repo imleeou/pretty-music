@@ -1,5 +1,5 @@
 import { getLoginStatus } from "@/api/login";
-import { USER_ACCOUNT_KEY, USER_PROFILE_KEY } from "@/enums/constants";
+import { USER_ACCOUNT_KEY, USER_PROFILE_KEY } from "@/enums/constants/setting";
 import { getCookieSync } from "@/utils/auth";
 
 export const useUser = () => {
