@@ -3,7 +3,9 @@
 </script>
 
 <template>
-    账号
+    <Layout showTabBar>
+        账号
+    </Layout>
 </template>
 
 <style scoped lang="scss">
