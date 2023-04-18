@@ -4,12 +4,22 @@ import { getUserPlaylistApi } from "@/api/user";
 import { USER_PROFILE_KEY } from "@/enums/constants/setting";
 import type { LoginStatusProfile } from "@/types/response";
 import type { UserPlaylist } from "@/types/user";
+import PrettyDrawer from "@/components/PrettyDrawer/index.vue";
+
+interface CurrentPlayList extends UserPlaylist {
+  /** 歌单下的歌曲 */
+  musics: [];
+}
 
 const userInfo: LoginStatusProfile = uni.getStorageSync(USER_PROFILE_KEY),
   /** 保存歌单信息 */
   playlist = ref<UserPlaylist[]>([]),
   /** 歌单是否加载完毕 */
-  isPlaylistLoaded = ref(true);
+  isPlaylistLoaded = ref(true),
+  /** 是否显示抽屉 */
+  show = ref(false),
+  /** 保存当前歌单信息 */
+  currentPlaylist = ref<CurrentPlayList>();
 /** 获取用户歌单 */
 const getUserPlaylist = async () => {
   const { data } = await getUserPlaylistApi({
@@ -21,6 +31,16 @@ const getUserPlaylist = async () => {
   isPlaylistLoaded.value = !data.more;
 };
 getUserPlaylist();
+
+/** 点击歌单 */
+const clickPlayList = (item: UserPlaylist) => {
+  show.value = true;
+  currentPlaylist.value = {
+    ...item,
+    musics: [],
+  };
+  console.log("clickPlayList", item, show.value);
+};
 </script>
 
 <template>
@@ -31,7 +51,12 @@ getUserPlaylist();
         <text class="tip" v-if="!isPlaylistLoaded">查看更多</text>
       </view>
       <view class="play-list">
-        <view class="play" v-for="l in playlist" :key="l.id">
+        <view
+          class="play"
+          v-for="l in playlist"
+          :key="l.id"
+          @click="clickPlayList(l)"
+        >
           <image class="cover-image" :src="l.coverImgUrl" />
           <view class="play-list-info">
             <text class="name">{{ l.name }}</text>
@@ -40,6 +65,7 @@ getUserPlaylist();
         </view>
       </view>
     </view>
+    <PrettyDrawer v-model:show="show" :name="currentPlaylist?.name"> 123 </PrettyDrawer>
   </Layout>
 </template>
 
