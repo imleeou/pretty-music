@@ -58,28 +58,28 @@ const close = () => {
 
 <template>
   <view class="pretty-drawer" :style="dynamicStyle">
-    <header class="header">
+    <header class="header flex-center">
       <i @click="close" class="iconfont icon-drawer-toright"></i>
-      <text class="module-tit" v-if="props.name">{{ props.name }}</text>
+      <text class="module-tit text-over" v-if="props.name">{{ props.name }}</text>
     </header>
     <slot></slot>
   </view>
 </template>
 
 <style scoped lang="scss">
-@import '@/style/variable.scss';
+@import "@/style/variable.scss";
 .pretty-drawer {
   height: 100%;
   position: fixed;
   top: 0;
   background-color: #fff;
   // 左侧阴影
-  box-shadow:$default-shadow;
+  box-shadow: $default-shadow;
   .header {
     width: 100%;
     height: 100rpx;
     position: relative;
-    padding: 0 20rpx;
+    padding: 0 100rpx;
     text-align: center;
     line-height: 60rpx;
     > .iconfont {
@@ -90,6 +90,10 @@ const close = () => {
       &:active {
         color: #7b7b7b;
       }
+    }
+    .module-tit {
+      font-size: 44rpx;
+      max-width: 100%;
     }
   }
 }
