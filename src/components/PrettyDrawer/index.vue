@@ -57,15 +57,17 @@ const close = () => {
 </script>
 
 <template>
-  <scroll-view scroll-y class="pretty-drawer" :style="dynamicStyle">
+  <view class="pretty-drawer" :style="dynamicStyle">
     <header class="header flex-center">
       <i @click="close" class="iconfont icon-drawer-toright"></i>
       <text class="module-tit text-over" v-if="props.name">{{
         props.name
       }}</text>
     </header>
-    <slot></slot>
-  </scroll-view>
+    <scroll-view scroll-y class="slot-content">
+      <slot></slot>
+    </scroll-view>
+  </view>
 </template>
 
 <style scoped lang="scss">
@@ -77,10 +79,13 @@ const close = () => {
   background-color: #fff;
   // 左侧阴影
   box-shadow: $default-shadow;
+  padding-top: 100rpx;
   .header {
     width: 100%;
     height: 100rpx;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     padding: 0 100rpx;
     text-align: center;
     line-height: 60rpx;
@@ -97,6 +102,9 @@ const close = () => {
       font-size: 44rpx;
       max-width: 100%;
     }
+  }
+  .slot-content {
+    height: 100%;
   }
 }
 </style>
