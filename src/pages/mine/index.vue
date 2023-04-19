@@ -5,10 +5,12 @@ import { USER_PROFILE_KEY } from "@/enums/constants/setting";
 import type { LoginStatusProfile } from "@/types/response";
 import type { UserPlaylist } from "@/types/user";
 import PrettyDrawer from "@/components/PrettyDrawer/index.vue";
+import { getPlaylistMusicApi } from "@/api/music";
+import type { Song } from "@/types/music";
 
 interface CurrentPlayList extends UserPlaylist {
   /** 歌单下的歌曲 */
-  musics: [];
+  musics: Song[];
 }
 
 const userInfo: LoginStatusProfile = uni.getStorageSync(USER_PROFILE_KEY),
@@ -39,7 +41,25 @@ const clickPlayList = (item: UserPlaylist) => {
     ...item,
     musics: [],
   };
-  console.log("clickPlayList", item, show.value);
+  getPlaylistMusics(currentPlaylist.value.id);
+};
+
+/** 获取歌单歌曲
+ * @param id 歌单id
+ */
+const getPlaylistMusics = async (id: number) => {
+  const { data } = await getPlaylistMusicApi({
+    id,
+  });
+  currentPlaylist.value = {
+    ...currentPlaylist.value,
+    musics: data.songs,
+  } as CurrentPlayList;
+};
+
+/** 点击歌曲 */
+const playMusic = (s: Song) => {
+  console.log("song", s);
 };
 </script>
 
@@ -65,7 +85,53 @@ const clickPlayList = (item: UserPlaylist) => {
         </view>
       </view>
     </view>
-    <PrettyDrawer v-model:show="show" :name="currentPlaylist?.name"> 123 </PrettyDrawer>
+    <PrettyDrawer v-model:show="show" :name="currentPlaylist?.name">
+      <view class="drawer-header">
+        <view
+          class="bg"
+          :style="{
+            backgroundImage: `url(${currentPlaylist?.coverImgUrl})`,
+          }"
+        ></view>
+        <image
+          class="cover"
+          :src="currentPlaylist?.coverImgUrl"
+          mode="scaleToFill"
+        />
+        <view class="info">
+          <text>{{ currentPlaylist?.name }}</text>
+          <view class="creator">
+            <image
+              class="avatar"
+              :src="currentPlaylist?.creator.avatarUrl"
+              mode="scaleToFill"
+            />
+            <text class="nickname">{{
+              currentPlaylist?.creator.nickname
+            }}</text>
+          </view>
+        </view>
+      </view>
+      <view class="songs">
+        <view
+          class="song"
+          v-for="(s, index) in currentPlaylist?.musics"
+          :key="s.id"
+          @click="playMusic(s)"
+        >
+          <view class="song-info">
+            <text class="sort">{{ index + 1 }}</text>
+            <view class="info">
+              <text class="name">
+                {{ s.name }}
+                <text v-if="s.alia.length" class="alia">({{ s.alia[0] }})</text>
+              </text>
+              <text class="singer">{{ s.ar[0].name }} - {{ s.al.name }}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </PrettyDrawer>
   </Layout>
 </template>
 
@@ -121,6 +187,98 @@ const clickPlayList = (item: UserPlaylist) => {
           text-overflow: ellipsis;
         }
         .track-count {
+          font-size: 30rpx;
+          color: $default-gray;
+        }
+      }
+    }
+  }
+}
+
+.drawer-header {
+  width: 100%;
+  height: 400rpx;
+  display: flex;
+  padding: 50rpx;
+  position: relative;
+  align-items: center;
+  .bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    filter: blur(20rpx) brightness(70%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    left: 0;
+    top: 0;
+    z-index: -1;
+  }
+  .cover {
+    width: 200rpx;
+    height: 200rpx;
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #fff;
+    margin-left: 50rpx;
+    .creator {
+      display: flex;
+      align-items: center;
+      margin-top: 20rpx;
+
+      > .avatar {
+        width: 60rpx;
+        height: 60rpx;
+        border-radius: 50%;
+      }
+      > .nickname {
+        font-size: 30rpx;
+        margin-left: 10rpx;
+        color: #e1e1e1;
+      }
+    }
+  }
+}
+
+.songs {
+  padding: 40rpx 20rpx;
+  .song {
+    display: flex;
+    align-items: center;
+    padding: 20rpx 0;
+    &:last-child {
+      padding-bottom: 0;
+    }
+    &:active {
+      background-color: $default-active-bg;
+    }
+    .song-info {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      .sort {
+        padding: 0 40rpx;
+        font-size: 40rpx;
+        color: $default-gray;
+      }
+      .info {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .name {
+          font-size: 40rpx;
+          max-width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          .alia {
+            font-size: 30rpx;
+            color: $default-gray;
+          }
+        }
+        .singer {
           font-size: 30rpx;
           color: $default-gray;
         }

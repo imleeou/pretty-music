@@ -8,6 +8,7 @@ export interface UserPlaylist {
     signature: string;
     description: string;
     backgroundUrl: string;
+    nickname: string;
   },
   /** 歌单名 */
   name: string;

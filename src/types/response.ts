@@ -1,5 +1,6 @@
 import type { LOGIN_QR_STATUS_MAP } from "@/enums/constants";
 import type { UserPlaylist } from "./user";
+import type { Song } from "./music";
 
 /** 默认响应类型 */
 export interface DefaultResponse<T> {
@@ -90,5 +91,11 @@ export interface LoginStatusResponse {
 /** 获取用户歌单返回 */
 export interface GetUserPlaylistResponse {
   more: boolean;
-  playlist: UserPlaylist[]
+  playlist: UserPlaylist[];
+}
+
+/** 获取歌单所有歌曲返回 */
+export interface GetPlaylistMusicResponse {
+  privileges: any[];
+  songs: Song[];
 }
