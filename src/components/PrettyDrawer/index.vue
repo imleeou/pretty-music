@@ -57,13 +57,15 @@ const close = () => {
 </script>
 
 <template>
-  <view class="pretty-drawer" :style="dynamicStyle">
+  <scroll-view scroll-y class="pretty-drawer" :style="dynamicStyle">
     <header class="header flex-center">
       <i @click="close" class="iconfont icon-drawer-toright"></i>
-      <text class="module-tit text-over" v-if="props.name">{{ props.name }}</text>
+      <text class="module-tit text-over" v-if="props.name">{{
+        props.name
+      }}</text>
     </header>
     <slot></slot>
-  </view>
+  </scroll-view>
 </template>
 
 <style scoped lang="scss">
