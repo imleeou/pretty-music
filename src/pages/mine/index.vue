@@ -113,6 +113,14 @@ const playMusic = (s: Song) => {
         </view>
       </view>
       <view class="songs">
+        <view class="play-all">
+          <i class="iconfont icon-play"></i>
+          <text class="text"
+            >播放全部<text
+              >（共{{ currentPlaylist?.trackCount }}首）</text
+            ></text
+          >
+        </view>
         <view
           class="song"
           v-for="(s, index) in currentPlaylist?.musics"
@@ -244,6 +252,23 @@ const playMusic = (s: Song) => {
 
 .songs {
   padding: 40rpx 20rpx;
+  .play-all {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    > .iconfont {
+      font-size: 40rpx;
+      padding: 0 30rpx;
+    }
+    .text {
+      font-size: 40rpx;
+      text {
+        font-size: 30rpx !important;
+        color: $default-gray;
+      }
+    }
+  }
   .song {
     display: flex;
     align-items: center;
