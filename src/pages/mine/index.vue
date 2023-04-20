@@ -258,6 +258,7 @@ const playMusic = (s: Song) => {
       display: flex;
       align-items: center;
       width: 100%;
+      overflow: hidden;
       .sort {
         padding: 0 40rpx;
         font-size: 40rpx;
@@ -266,13 +267,15 @@ const playMusic = (s: Song) => {
       .info {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 84%;
         .name {
           font-size: 40rpx;
-          max-width: 100%;
+          width: 100%;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          flex-grow: 0;
+
           .alia {
             font-size: 30rpx;
             color: $default-gray;
