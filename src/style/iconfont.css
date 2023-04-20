@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'iconfont';  /* Project id 4010150 */
-  src: url('https://at.alicdn.com/t/c/font_4010150_oly64nxceq.woff2?t=1681821802539') format('woff2'),
-       url('https://at.alicdn.com/t/c/font_4010150_oly64nxceq.woff?t=1681821802539') format('woff'),
-       url('https://at.alicdn.com/t/c/font_4010150_oly64nxceq.ttf?t=1681821802539') format('truetype');
+  src: url('https://at.alicdn.com/t/c/font_4010150_k5wzumz1dbc.woff2?t=1681994019107') format('woff2'),
+       url('https://at.alicdn.com/t/c/font_4010150_k5wzumz1dbc.woff?t=1681994019107') format('woff'),
+       url('https://at.alicdn.com/t/c/font_4010150_k5wzumz1dbc.ttf?t=1681994019107') format('truetype');
 }
 
 .iconfont {
@@ -29,4 +29,12 @@
 /** 抽屉向右 */
 .icon-drawer-toright:before {
   content: "\e9c8";
+}
+/** 播放 */
+.icon-play:before {
+  content: "\e624";
+}
+/** 更多 */
+.icon-more:before {
+  content: "\e78d";
 }
