@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TabBar from "./modules/TabBar.vue";
+import ControlStrip from "./modules/ControlStrip.vue";
 
 interface Props {
   /** 是否显示tabbar  */
@@ -17,11 +18,11 @@ const props = withDefaults(defineProps<Props>(), {
     <view class="layout-content">
       <slot></slot>
     </view>
+    <ControlStrip></ControlStrip>
   </view>
 </template>
 
 <style scoped lang="scss">
-@import "@/style/variable.scss";
 .page-layout {
   width: 100%;
   height: 100%;
