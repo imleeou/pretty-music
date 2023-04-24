@@ -3,6 +3,13 @@ import uni from "@dcloudio/vite-plugin-uni";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  css:{
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "@/style/variable.scss";`
+      }
+    }
+  },
   server: {
     port: 9001,
     proxy: {
